@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.eclipse.che.api.core.notification.EventService;
 import org.eclipse.che.api.fs.server.PathTransformer;
 import org.eclipse.che.api.git.shared.Status;
 import org.eclipse.che.api.project.server.ProjectManager;
@@ -48,6 +49,7 @@ public class GitStatusProviderTest {
   private @Mock GitConnectionFactory gitConnectionFactory;
   private @Mock PathTransformer pathTransformer;
   private @Mock ProjectManager projectManager;
+  private @Mock EventService eventService;
   private @Mock Status statusDto;
   private @InjectMocks GitStatusProvider gitStatusProvider;
 
@@ -70,7 +72,7 @@ public class GitStatusProviderTest {
   @Test
   public void shouldReturnUntrackedStatus() throws Exception {
     // given
-    when(statusDto.getUntracked()).thenReturn(singletonList(NORMALIZED_PATH));
+    when(statusDto.getUntracked()).thenReturn(new ArrayList<>(singletonList(NORMALIZED_PATH)));
 
     // when
     VcsStatus status = gitStatusProvider.getStatus(PATH);
@@ -82,7 +84,7 @@ public class GitStatusProviderTest {
   @Test
   public void shouldReturnAddedStatus() throws Exception {
     // given
-    when(statusDto.getAdded()).thenReturn(singletonList(NORMALIZED_PATH));
+    when(statusDto.getAdded()).thenReturn(new ArrayList<>(singletonList(NORMALIZED_PATH)));
 
     // when
     VcsStatus status = gitStatusProvider.getStatus(PATH);
@@ -94,7 +96,7 @@ public class GitStatusProviderTest {
   @Test
   public void shouldReturnModifiedStatus() throws Exception {
     // given
-    when(statusDto.getModified()).thenReturn(singletonList(NORMALIZED_PATH));
+    when(statusDto.getModified()).thenReturn(new ArrayList<>(singletonList(NORMALIZED_PATH)));
 
     // when
     VcsStatus status = gitStatusProvider.getStatus(PATH);
@@ -106,7 +108,7 @@ public class GitStatusProviderTest {
   @Test
   public void shouldReturnModifiedStatusIfChanged() throws Exception {
     // given
-    when(statusDto.getChanged()).thenReturn(singletonList(NORMALIZED_PATH));
+    when(statusDto.getChanged()).thenReturn(new ArrayList<>(singletonList(NORMALIZED_PATH)));
 
     // when
     VcsStatus status = gitStatusProvider.getStatus(PATH);
