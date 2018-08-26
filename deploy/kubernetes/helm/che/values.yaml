@@ -41,3 +41,6 @@ global:
   gitHubClientSecret: ""
   pvcClaim: "1Gi"
   cheWorkspacesNamespace: ""
+  log:
+      loggerConfig: ""
+      customAppenderName: ""
